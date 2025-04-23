@@ -85,4 +85,61 @@
         }
     }
     login();
+    function InsertProduct(){
+        if(isset($_POST['insert'])){
+            session_start();
+           global $con;
+           $user=$_SESSION['name_email'];
+           $userID="SELECT `userID` FROM `crud_user` WHERE `userName`='$user' OR `email`='$user'";
+           $result=$con->query($userID); 
+           $id=$result->fetch_assoc()['userID'];
+           $pro_name=htmlspecialchars($_POST['name']);
+            $r_price=$_POST['r_price']; 
+            $s_price=$_POST['s_price'];
+            $image=moveFile('Image');
+            $insert="INSERT INTO `crud_menu`( `menu_name`, `reqular_price`, `sale_price`, `image`, `user_id`) 
+            VALUES ('$pro_name','$r_price','$s_price','$image','$id')";
+            if($con->query($insert)){
+                echo '
+                    <script>
+                        window.location.href = "add-product.php";
+                    </script>                   
+                ';
+            }
+        }
+    }
+    InsertProduct();
+    function deleteProduct(){
+        if(isset($_POST['delete'])){
+            $id=$_POST['hide_id'];
+           global $con;
+           $delete="DELETE FROM `crud_menu` WHERE `menu_id`='$id'";
+           if($con->query($delete)){
+            echo '<script>window.location.href="viewProduct.php"</script>';
+           }
+        }
+    }
+    deleteProduct();
+    function editProduct(){
+        date_default_timezone_set('Asia/Phnom_Penh');
+        if(isset($_POST['edit'])){
+            $id=$_POST['hide_id'];
+            $pro_name=htmlspecialchars($_POST['name']);
+            $r_price=$_POST['r_price']; 
+            $s_price=$_POST['s_price'];
+            $update_at=date('Y-m-d H:i:s');
+            if(empty($_FILES['Image']['name'])){
+                $image=$_POST['old_image'];
+            }else{
+                $image=moveFile('Image');
+            }
+            global $con;
+            $update="UPDATE `crud_menu` SET `menu_name`='$pro_name',`reqular_price`='$r_price',
+            `sale_price`='$s_price',`image`='$image',`update_at`='$update_at' WHERE `menu_id`='$id'";
+            if($con->query($update)){
+                echo '<script>window.location.href="viewProduct.php"</script>';
+            }
+        }
+    }
+    editProduct();
 ?>

@@ -33,9 +33,10 @@
                     <li style="padding: 10px 0;"> <a style="text-decoration: none; color:#fff;" href="dashbord.php"> 🏠Home</a></li>
                     <li style="padding: 10px 0;">📊 Analytics</li>
                     <li style="padding: 10px 0;"><a style="text-decoration: none; color:#fff;" href="viewProduct.php">👁️ View Product</a></li>
-                    <li style="padding: 10px 0;"><a style="text-decoration: none; color:#fff;" href="add-product.php"> ➕Add Product</a></li>
+                    <li style="padding: 10px 0;" id="add"><a style="text-decoration: none; color:#fff;" href="add-product.php" > ➕Add Product</a></li>
                     <li style="padding: 10px 0;">📈 Reports</li>
                     <li style="padding: 10px 0;">⚙️ Settings</li>
                 </ul>
             </nav>
         </div>
+       
