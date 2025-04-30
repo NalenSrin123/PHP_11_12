@@ -12,6 +12,12 @@ $recent_activities = [
     ['user' => 'Jane Smith', 'action' => 'Updated profile', 'time' => '15 min ago'],
     ['user' => 'Mike Johnson', 'action' => 'Completed payment', 'time' => '30 min ago']
 ];
+session_start();
+if(empty($_SESSION['name_email'])){
+    echo '<script>window.location.href = "login.php";</script>';
+    exit;
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if(empty($_SESSION['name_email'])){
+    echo '<script>window.location.href = "login.php";</script>';
+    exit;
+
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,12 +50,15 @@
                 </thead>
                 <tbody>
                     <?php 
+                
                         include '../connection.php';
                         $sql="SELECT *,`profile` FROM `crud_menu` INNER JOIN `crud_user` ON `userID`=`user_id`";
                         $result=$con->query($sql);
                         while($row=$result->fetch_assoc()){
                             echo '
                                 <tr>
+
+                                    
                                     <td>'.$row['menu_id'].'</td>
                                     <td>'.$row['menu_name'].'</td>
                                     <td>'.$row['reqular_price'].'</td>

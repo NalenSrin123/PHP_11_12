@@ -12,6 +12,8 @@
 </body>
 </html>
 <?php 
+session_start();
+
     include "../connection.php";
     function moveFile($name){
         $image=rand(1,1000).'_'.$_FILES[$name]['name'];
@@ -52,7 +54,6 @@
                 $row=$resutl->fetch_assoc();
                 $hashPassword=$row['password'];
                 if(password_verify($password,$hashPassword)){
-                   session_start();
                    $_SESSION['name_email']=$name_email;
                    $_SESSION['role']=$row['role'];
                      echo '<script>window.location.href="../index.php"</script>';
@@ -82,6 +83,7 @@
                     </script>
                 ';
             }
+        
         }
     }
     login();
