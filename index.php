@@ -139,7 +139,7 @@
                                 <div class="form-group  d-flex flex-column">
                                 <label for="image" class="form-label">Image</label>
                                 <input type="file" name="image" id="image" class="form-control"> 
-                                <input type="hidden" name="name_image" id="name_image" class="form-control"> 
+                                <input type="text" name="name_image" id="name_image" class="form-control"> 
                                 <img id="img"  width="120px" src="https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg" alt="">
                             </div>
                                 </div>
@@ -305,12 +305,9 @@
         const name=row.find('td').eq(1).text()
         const r_price=row.find('td').eq(2).text()
         const s_price=row.find('td').eq(3).text()
-        const stock=row.find('td').eq(4).text()
-        
+        const stock=row.find('td').eq(4).text()       
         const des=row.find('td').eq(7).text()
-        const image_name=row.find('img').attr('src').split('/').pop();
-
-        
+        const image_name=row.find('img').attr('src').split('/').pop();     
         //take data insert into form
         $('#hide_id').val(code);
         $('#name').val(name);
@@ -327,37 +324,34 @@
             const f_name=$('#name').val();
             const f_r_price=$('#r_price').val();
             const f_s_price=$('#s_price').val();
-            const f_stock=$('#stock').val(stock);
+            const f_stock=$('#stock').val();
             const f_des=$('#des').val();
-            const size=$('#size').val();
+            const f_size=$('#size').val();
             const color=$('#color').val();
-            const name_image=$('#img').val()
-            
+            const name_image=$('#name_image').val();  
             $.ajax({
-            url:'editProduct.php',
-            method:'post',
-            data:{
-                'code':f_code,
-               'name':f_name, 
-               'r_price':f_r_price, 
-               's_price':f_s_price, 
-               'stock':f_stock, 
-               'size':size, 
-               'color':color, 
-               'des':f_des, 
-               'name_image':name_image, 
-            },
+                url:'editProduct.php',
+                method:'post',
+                data:{
+                    'code':f_code,
+                    'name':f_name, 
+                    'r_price':f_r_price, 
+                    's_price':f_s_price, 
+                    'stock':f_stock, 
+                    'size':f_size, 
+                    'color':color, 
+                    'des':f_des, 
+                    'name_image':name_image, 
+                },
             cache:false,
-            success:function(res){
-                    row.remove();
-                    $('#tbody').prepend(`'
-                    <tr>
+            success:function(res){              
+                    $(row).html(`'    
                     <td>${code}</td>
                     <td>${name}</td>
                     <td>${r_price}</td>
                     <td>${s_price}</td>
                     <td>${stock}</td>
-                    <td>${size}</td>
+                    <td>${f_size}</td>
                     <td>${color}</td>
                     <td>${des}</td>
                     <td><img width="80" src="./uploads/${res}" alt=""></td>
@@ -365,10 +359,8 @@
                         <button class="btn btn-warning " id="btnEdit" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
                         <button class="btn btn-danger" type="button" data-id="${res}" id="delete"  data-bs-toggle="modal" data-bs-target="#exampleModal1">Delete</button>
                     </td>
-                </tr>
-                `) 
                 
-                
+                `)
             }
         });
         })
